@@ -1,7 +1,7 @@
 import {
   OrderKind,
   ActionsOrderActionKind,
-  FixedActionsOrder
+  SignedFixedActionsOrder
 } from "@0xcert/ethereum-gateway";
 
 export const config = {
@@ -14,14 +14,15 @@ export const config = {
       valueLedgerDeployOrderId: "0x327577e70e21AcEe01447AD06939Fb4057232b2A"
     }
   },
-  assetLedgerId: "", // Input you own asset ledger id
-  account1Id: "", // Input your primary metamask account Id.
-  account2Id: "", // Input your secondary metamask account Id
-  signature: ""
+  assetLedgerId: "0x8ABa05cA8c8F2c614486AD0EbaFf794C297bc6e5", // Input you own asset ledger id
+  account1Id: "0xF9196F9f176fd2eF9243E8960817d5FbE63D79aa", // Input your primary metamask account Id.
+  account2Id: "0x44e44897FC076Bc46AaE6b06b917D0dfD8B2dae9", // Input your secondary metamask account Id
+  signatureAccount1: "",
+  signatureAccount2: ""
 };
 
 export const order = {
-  kind: OrderKind.FIXED_ACTIONS_ORDER,
+  kind: OrderKind.SIGNED_FIXED_ACTIONS_ORDER,
   signers: [config.account1Id, config.account2Id],
   seed: Date.now(),
   expiration: Date.now() + 86400000,
@@ -43,4 +44,4 @@ export const order = {
         "c6c14772f269bed1161d4350403f4c867c749b3cce7abe84c6d0605068cd8a87"
     }
   ]
-} as FixedActionsOrder;
+} as SignedFixedActionsOrder;

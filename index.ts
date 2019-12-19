@@ -3,9 +3,10 @@ import {
   approveAssetTransfer,
   checkApprovedAssetCreation,
   approveAssetCreation,
-  signOrder,
   performOrder,
-  provider
+  provider,
+  signOrderAccount1,
+  signOrderAccount2
 } from "./src/example";
 import { config } from "./src/config";
 
@@ -37,37 +38,47 @@ btnSignOrder.addEventListener("click", async () => {
     return;
   }
 
-  if (provider.accountId !== config.account1Id) {
-    printWarning("Select account1 in metamask to sign this order.");
-    return;
-  }
+  if (provider.accountId === config.account1Id) {
+    let error = null;
+    await signOrderAccount1().catch(e => {
+      error = e;
+      printError(e);
+    });
 
-  let error = null;
-  await signOrder().catch(e => {
-    error = e;
-    printError(e);
-  });
+    if (!error) {
+      printMessage(
+        "Order signing with account1 sucessfull: " + config.signatureAccount1
+      );
+    }
+  } else if (provider.accountId === config.account2Id) {
+    let error = null;
+    await signOrderAccount2().catch(e => {
+      error = e;
+      printError(e);
+    });
 
-  if (!error) {
-    printMessage("Order signing sucessfull: " + config.signature);
+    if (!error) {
+      printMessage(
+        "Order signing with account2 sucessfull: " + config.signatureAccount2
+      );
+    }
+  } else {
+    printWarning("Select account1 or account2 in metamask to sign this order.");
   }
 });
 
 btnPerformOrder.addEventListener("click", async () => {
-  if (config.assetLedgerId === "") {
+  if (config.signatureAccount1 === "") {
     printWarning(
-      "No assetLedgerSource defined. Either deploy a new asset ledger or set asset ledger source in src/config.ts file."
+      "No signature from account 1 provided. Please sign order with account 1."
     );
     return;
   }
 
-  if (config.account2Id === "") {
-    printWarning("No account2Id defined. Please set it in src/config.ts file.");
-    return;
-  }
-
-  if (provider.accountId !== config.account2Id) {
-    printWarning("Select account2 in metamask to perform this order.");
+  if (config.signatureAccount2 === "") {
+    printWarning(
+      "No signature from account 2 provided. Please sign order with account 2."
+    );
     return;
   }
 

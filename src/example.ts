@@ -59,18 +59,28 @@ export async function approveAssetCreation() {
   ]);
 }
 
-export async function signOrder() {
+export async function signOrderAccount1() {
   await enableMetamask();
   const gateway = new Gateway(provider);
-  console.log(order);
   const signature = await gateway.sign(order).catch(e => {
-    console.log(e);
     throw e;
   });
-  config.signature = signature;
+  config.signatureAccount1 = signature;
+}
+
+export async function signOrderAccount2() {
+  await enableMetamask();
+  const gateway = new Gateway(provider);
+  const signature = await gateway.sign(order).catch(e => {
+    throw e;
+  });
+  config.signatureAccount2 = signature;
 }
 
 export async function performOrder() {
   const gateway = new Gateway(provider);
-  return gateway.perform(order, [config.signature]);
+  return gateway.perform(order, [
+    config.signatureAccount1,
+    config.signatureAccount2
+  ]);
 }
