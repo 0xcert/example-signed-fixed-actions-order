@@ -14,9 +14,9 @@ export const config = {
       valueLedgerDeployOrderId: "0x327577e70e21AcEe01447AD06939Fb4057232b2A"
     }
   },
-  assetLedgerId: "0x8ABa05cA8c8F2c614486AD0EbaFf794C297bc6e5", // Input you own asset ledger id
-  account1Id: "0xF9196F9f176fd2eF9243E8960817d5FbE63D79aa", // Input your primary metamask account Id.
-  account2Id: "0x44e44897FC076Bc46AaE6b06b917D0dfD8B2dae9", // Input your secondary metamask account Id
+  assetLedgerId: "", // Input you own asset ledger id
+  account1Id: "", // Input your primary metamask account Id.
+  account2Id: "", // Input your secondary metamask account Id
   signatureAccount1: "",
   signatureAccount2: ""
 };
